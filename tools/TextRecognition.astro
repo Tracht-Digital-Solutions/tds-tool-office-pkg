@@ -1,0 +1,13 @@
+---
+import TextRecognition from "../islands/TextRecognition.tsx";
+
+interface Props {
+  lang?: "de" | "en";
+}
+
+const { lang = "de" } = Astro.props;
+---
+
+<div class="tool tool--text-recognition">
+  <TextRecognition client:load lang={lang} />
+</div>

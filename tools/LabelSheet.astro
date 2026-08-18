@@ -1,0 +1,13 @@
+---
+import LabelSheet from "../islands/LabelSheet.tsx";
+
+interface Props {
+  lang?: "de" | "en";
+}
+
+const { lang = "de" } = Astro.props;
+---
+
+<div class="tool tool--label-sheet">
+  <LabelSheet client:load lang={lang} />
+</div>

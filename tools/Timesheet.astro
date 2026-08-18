@@ -1,0 +1,13 @@
+---
+import Timesheet from "../islands/Timesheet.tsx";
+
+interface Props {
+  lang?: "de" | "en";
+}
+
+const { lang = "de" } = Astro.props;
+---
+
+<div class="tool tool--timesheet">
+  <Timesheet client:load lang={lang} />
+</div>
