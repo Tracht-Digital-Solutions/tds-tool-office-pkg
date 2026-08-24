@@ -1,6 +1,6 @@
 {
   "name": "@tracht-digital-solutions/tds-tool-office",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Office tool package for the TDS tools platform (tds-tools): label sheets, timesheets and OCR text recognition — all premium, all fully client-side.",
   "license": "UNLICENSED",
   "private": false,
