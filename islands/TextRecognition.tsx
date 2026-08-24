@@ -19,6 +19,7 @@ interface Strings {
   result: string;
   copy: string;
   copied: string;
+  copyFailed: string;
   save: string;
   outName: string;
   pdfHint: string;
@@ -44,6 +45,7 @@ const STRINGS = {
     result: "Erkannter Text",
     copy: "Kopieren",
     copied: "Kopiert.",
+    copyFailed: "Der Text konnte nicht kopiert werden.",
     save: "Als Textdatei speichern",
     outName: "erkannter-text.txt",
     pdfHint:
@@ -67,6 +69,7 @@ const STRINGS = {
     result: "Recognised text",
     copy: "Copy",
     copied: "Copied.",
+    copyFailed: "The text could not be copied.",
     save: "Save as a text file",
     outName: "recognised-text.txt",
     pdfHint:
@@ -114,9 +117,13 @@ export default function TextRecognition({ lang = "de" }: Props) {
     previewUrl.current = next ? URL.createObjectURL(next) : null;
     setPreview(previewUrl.current);
   };
+  /** Pending "Kopiert." reset, cleared on unmount so it cannot set state after. */
+  const copyReset = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(
     () => () => {
       if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
+      if (copyReset.current !== null) clearTimeout(copyReset.current);
     },
     [],
   );
@@ -161,11 +168,22 @@ export default function TextRecognition({ lang = "de" }: Props) {
   };
 
   const copy = async () => {
+    // Nothing to copy is not a failure, and writing "" would clear whatever the
+    // user already had on the clipboard.
+    if (text === "") return;
     try {
       await navigator.clipboard.writeText(text);
       setStatus(t.copied);
+      // Same 1.5s reset as every other copy button in the tool packs. Without
+      // it "Kopiert." replaces the recognition summary permanently, so the
+      // character count and confidence the user was reading simply vanish.
+      if (copyReset.current !== null) clearTimeout(copyReset.current);
+      copyReset.current = setTimeout(() => setStatus(null), 1500);
     } catch {
-      setError(t.failed);
+      // A clipboard denial is NOT an OCR failure. Reporting `t.failed` here
+      // told the user their text could not be recognised while it sat on the
+      // screen in front of them.
+      setError(t.copyFailed);
     }
   };
 
@@ -211,7 +229,7 @@ export default function TextRecognition({ lang = "de" }: Props) {
         {phase === "loading" ? t.loading : phase === "working" ? t.recognising(percent) : t.run}
       </button>
 
-      {error && <p className="status-pill status-pill--danger text-sm">{error}</p>}
+      {error && <p className="status-pill status-pill--danger text-sm" role="alert">{error}</p>}
       {status && <p className="status-pill status-pill--success text-sm">{status}</p>}
 
       {text !== "" && (

@@ -20,6 +20,7 @@ interface DayEntry {
 
 interface Strings {
   failed: string;
+  needMonth: string;
   done: (days: number, total: string) => string;
   outName: (month: string) => string;
   employee: string;
@@ -54,6 +55,7 @@ interface Strings {
 const STRINGS = {
   de: {
     failed: "Der Stundenzettel konnte nicht erstellt werden.",
+    needMonth: "Bitte einen Monat wählen.",
     done: (days, total) => `${days} Arbeitstag(e), ${total} Stunden insgesamt.`,
     outName: (month) => `stundenzettel-${month}.pdf`,
     employee: "Mitarbeiterin / Mitarbeiter",
@@ -85,6 +87,7 @@ const STRINGS = {
   },
   en: {
     failed: "The timesheet could not be created.",
+    needMonth: "Please choose a month.",
     done: (days, total) => `${days} working day(s), ${total} hours in total.`,
     outName: (month) => `timesheet-${month}.pdf`,
     employee: "Employee",
@@ -205,7 +208,13 @@ export default function Timesheet({ lang = "de" }: Props) {
       const right = mm(A4.w - 15);
       let y = mm(A4.h - 18);
 
-      const monthLabel = new Date(`${month}-01T00:00:00`).toLocaleDateString(LOCALE[lang], {
+      // An empty or half-typed month field yields an Invalid Date, and
+      // `toLocaleDateString` throws on it — which the generic catch reported as
+      // "the timesheet could not be created", pointing nowhere near the blank
+      // field that caused it.
+      const monthStart = new Date(`${month}-01T00:00:00`);
+      if (Number.isNaN(monthStart.getTime())) throw new Error(t.needMonth);
+      const monthLabel = monthStart.toLocaleDateString(LOCALE[lang], {
         month: "long",
         year: "numeric",
       });
@@ -462,7 +471,7 @@ export default function Timesheet({ lang = "de" }: Props) {
         {busy ? t.working : t.run}
       </button>
 
-      {error && <p className="status-pill status-pill--danger text-sm">{error}</p>}
+      {error && <p className="status-pill status-pill--danger text-sm" role="alert">{error}</p>}
       {status && <p className="status-pill status-pill--success text-sm">{status}</p>}
 
       <p className="text-xs opacity-60">{t.note}</p>

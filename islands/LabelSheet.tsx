@@ -315,7 +315,10 @@ export default function LabelSheet({ lang = "de" }: Props) {
             max={perSheet}
             className={field}
             value={startAt}
-            onChange={(e) => setStartAt(Math.max(1, Number(e.target.value)))}
+            // Clamped to the sheet here, not only inside run(): the field
+            // accepted 999, showed 999 and silently printed from position
+            // `perSheet`, so the number on screen was not the number used.
+            onChange={(e) => setStartAt(Math.min(Math.max(1, Number(e.target.value) || 1), perSheet))}
           />
           <span className="mt-1 block text-xs opacity-60">{t.startAtHint}</span>
         </label>
@@ -369,7 +372,7 @@ export default function LabelSheet({ lang = "de" }: Props) {
         {busy ? t.working : t.run}
       </button>
 
-      {error && <p className="status-pill status-pill--danger text-sm">{error}</p>}
+      {error && <p className="status-pill status-pill--danger text-sm" role="alert">{error}</p>}
       {status && <p className="status-pill status-pill--success text-sm">{status}</p>}
 
       <p className="text-xs opacity-60">{t.note}</p>
