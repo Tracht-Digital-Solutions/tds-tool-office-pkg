@@ -229,11 +229,14 @@ export default function TextRecognition({ lang = "de" }: Props) {
         {phase === "loading" ? t.loading : phase === "working" ? t.recognising(percent) : t.run}
       </button>
 
-      {error && <p className="tds-alert tds-alert--danger" role="alert">{error}</p>}
-      {status && <p className="tds-alert tds-alert--success">{status}</p>}
+      {error && <p className="tds-alert tds-alert--danger tds-appear" role="alert">{error}</p>}
+      {status && <p className="tds-alert tds-alert--success tds-appear">{status}</p>}
 
       {text !== "" && (
-        <div className="space-y-3">
+        // tds-appear (tds-shared): the recognised text fades in as the block is
+        // inserted. CSS only — a public tool ships no animation runtime, and a
+        // later edit of the text does not re-animate.
+        <div className="space-y-3 tds-appear">
           <label className="block text-sm">
             <span className="mb-1 block opacity-80">{t.result}</span>
             <textarea
