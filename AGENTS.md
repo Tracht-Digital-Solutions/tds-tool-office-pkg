@@ -20,7 +20,7 @@ npm run lint:primitives         # fails on a bare control or a flex table cell
 
 ## Hard rules
 
-- **Every push to `main` publishes a `@latest` patch** and rebuilds `tds-tools-frontend`.
+- **Every push to `main` publishes a `@latest` patch** and deploys `tds-tools-frontend` (dispatches its `release.yml`).
   The manual release button is for minor/major. A docs-only commit carries `[skip ci]`.
 - **Never change the OCR asset paths.** Otherwise the tool silently loads from a CDN and the privacy claim becomes false.
 - Text drawn into a PDF goes through `toWinAnsi`; pdf-lib throws on unencodable characters.
