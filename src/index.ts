@@ -58,12 +58,12 @@ export default defineToolPack({
       description:
         "Text aus Fotos, Screenshots und eingescannten Bildern herauslesen, auf Deutsch oder Englisch — zum Kopieren und Weiterverarbeiten.",
       icon: "scan-text",
-      keywords: ["ocr", "texterkennung", "scan", "foto", "abtippen", "erkennen"],
+      keywords: ["texterkennung", "ocr", "text aus bild", "texterkennung online", "scan", "foto", "abtippen"],
       component: "@tracht-digital-solutions/tds-tool-office/tools/TextRecognition.astro",
       premiumDefault: true,
       priceCentsDefault: 500,
       seo: {
-        title: "Texterkennung (OCR) — Text aus Bild auslesen",
+        title: "Texterkennung (OCR) online – Text aus Bild auslesen",
         description:
           "Abgetippt wird nichts mehr: Texterkennung für Fotos und Bildscans, deutsch und englisch. Die Erkennung läuft auf Ihrem Gerät, das Bild bleibt dort.",
       },
