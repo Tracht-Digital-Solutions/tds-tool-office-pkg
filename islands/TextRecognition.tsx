@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { downloadBlob, type Lang } from "./shared";
+import { FileDropZone } from "@tracht-digital-solutions/tds-shared/dropzone";
 
 type Recognised = "deu" | "eng" | "deu+eng";
 
@@ -23,6 +24,8 @@ interface Strings {
   save: string;
   outName: string;
   pdfHint: string;
+  dropHint: string;
+  dropActive: string;
   note: string;
 }
 
@@ -35,6 +38,8 @@ const STRINGS = {
       "Es wurde kein Text gefunden. Ein schärferes, gerade ausgerichtetes Bild mit gutem Kontrast hilft am meisten.",
     done: (chars, confidence) => `${chars} Zeichen erkannt (Sicherheit ${confidence} %).`,
     chooseImage: "Bild auswählen (JPG, PNG, WebP)",
+    dropHint: "oder hierher ziehen bzw. mit Strg+V einfügen",
+    dropActive: "Loslassen zum Hinzufügen",
     language: "Sprache des Textes",
     german: "Deutsch",
     english: "Englisch",
@@ -59,6 +64,8 @@ const STRINGS = {
       "No text was found. A sharper, straight image with good contrast makes the biggest difference.",
     done: (chars, confidence) => `Recognised ${chars} characters (confidence ${confidence} %).`,
     chooseImage: "Choose an image (JPG, PNG, WebP)",
+    dropHint: "or drag it here, or paste with Ctrl+V",
+    dropActive: "Release to add",
     language: "Language of the text",
     german: "German",
     english: "English",
@@ -193,20 +200,20 @@ export default function TextRecognition({ lang = "de" }: Props) {
 
   return (
     <div className="text-recognition space-y-5">
-      <label className="block text-sm">
-        <span className="mb-1 block opacity-80">{t.chooseImage}</span>
-        <input
-          type="file"
-          accept="image/*"
-          className={field}
-          onChange={(e) => {
-            const next = e.target.files?.[0] ?? null;
-            setFile(next);
-            replacePreview(next);
-          }}
-        />
-        <span className="mt-1 block text-xs opacity-60">{t.pdfHint}</span>
-      </label>
+      <FileDropZone
+        label={t.chooseImage}
+        hint={t.dropHint}
+        activeLabel={t.dropActive}
+        accept="image/*"
+        paste
+        onFiles={(files) => {
+          const next = files[0] ?? null;
+          setFile(next);
+          replacePreview(next);
+        }}
+      >
+        <span className="block text-xs opacity-60">{t.pdfHint}</span>
+      </FileDropZone>
 
       {preview && (
         <img src={preview} alt="" className="max-h-64 w-auto" />
