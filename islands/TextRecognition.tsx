@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { downloadBlob, type Lang } from "./shared";
 import { FileDropZone } from "@tracht-digital-solutions/tds-shared/dropzone";
+import { Alert } from "@tracht-digital-solutions/tds-shared/alert";
 
 type Recognised = "deu" | "eng" | "deu+eng";
 
@@ -236,8 +237,8 @@ export default function TextRecognition({ lang = "de" }: Props) {
         {phase === "loading" ? t.loading : phase === "working" ? t.recognising(percent) : t.run}
       </button>
 
-      {error && <p className="tds-alert tds-alert--danger tds-appear" role="alert">{error}</p>}
-      {status && <p className="tds-alert tds-alert--success tds-appear">{status}</p>}
+      <Alert>{error}</Alert>
+      <Alert tone="success">{status}</Alert>
 
       {text !== "" && (
         // tds-appear (tds-shared): the recognised text fades in as the block is

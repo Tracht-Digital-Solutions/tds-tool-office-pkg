@@ -10,6 +10,7 @@ import {
   workedMinutes,
   type Lang,
 } from "./shared";
+import { Alert } from "@tracht-digital-solutions/tds-shared/alert";
 
 interface DayEntry {
   start: string;
@@ -471,8 +472,8 @@ export default function Timesheet({ lang = "de" }: Props) {
         {busy ? t.working : t.run}
       </button>
 
-      {error && <p className="tds-alert tds-alert--danger tds-appear" role="alert">{error}</p>}
-      {status && <p className="tds-alert tds-alert--success tds-appear">{status}</p>}
+      <Alert>{error}</Alert>
+      <Alert tone="success">{status}</Alert>
 
       <p className="text-xs opacity-60">{t.note}</p>
     </div>

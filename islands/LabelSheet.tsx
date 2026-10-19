@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { A4, downloadPdf, mm, toWinAnsi, type Lang } from "./shared";
+import { Alert } from "@tracht-digital-solutions/tds-shared/alert";
 
 /** One label grid on an A4 sheet. All measurements in millimetres. */
 export interface Preset {
@@ -372,8 +373,8 @@ export default function LabelSheet({ lang = "de" }: Props) {
         {busy ? t.working : t.run}
       </button>
 
-      {error && <p className="tds-alert tds-alert--danger tds-appear" role="alert">{error}</p>}
-      {status && <p className="tds-alert tds-alert--success tds-appear">{status}</p>}
+      <Alert>{error}</Alert>
+      <Alert tone="success">{status}</Alert>
 
       <p className="text-xs opacity-60">{t.note}</p>
     </div>

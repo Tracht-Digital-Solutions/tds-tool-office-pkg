@@ -5,7 +5,20 @@
  *
  * See the tools-site convention: labels are translated, logic is not.
  */
+import { downloadBytes } from "@tracht-digital-solutions/tds-shared/download";
+
 export type Lang = "de" | "en";
+
+/**
+ * Downloads go through tds-shared (`./download`): the link is attached, and
+ * the object URL is revoked after Firefox has read it.
+ */
+export { downloadBlob } from "@tracht-digital-solutions/tds-shared/download";
+
+/** pdf-lib bytes as a `.pdf` download (the shared helper copies the view first). */
+export function downloadPdf(bytes: Uint8Array, name: string): void {
+  downloadBytes(bytes, "application/pdf", name);
+}
 
 export const LOCALE: Record<Lang, string> = { de: "de-DE", en: "en-GB" };
 
@@ -16,23 +29,6 @@ export function mm(value: number): number {
 
 /** A4 in millimetres — every sheet this pack produces is A4. */
 export const A4 = { w: 210, h: 297 } as const;
-
-/** Hand a Blob to the visitor as a download. Nothing here ever leaves the tab. */
-export function downloadBlob(blob: Blob, name: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-export function downloadPdf(bytes: Uint8Array, name: string): void {
-  // `.slice()` because pdf-lib hands back a view into a larger buffer.
-  downloadBlob(new Blob([bytes.slice()], { type: "application/pdf" }), name);
-}
 
 /**
  * The 14 standard PDF fonts are encoded WinAnsi, which covers German but not a
