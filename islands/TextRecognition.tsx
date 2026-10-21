@@ -55,8 +55,8 @@ const STRINGS = {
     save: "Als Textdatei speichern",
     outName: "erkannter-text.txt",
     pdfHint:
-      "PDFs werden hier nicht gelesen — wandeln Sie eine Seite zuerst in ein Bild um, dann klappt die Erkennung.",
-    note: "Texterkennung und Sprachdaten laufen auf Ihrem Gerät. Das Bild wird nicht hochgeladen und keine fremde Seite wird dabei aufgerufen.",
+      "PDFs werden hier nicht gelesen — eine Seite zuerst in ein Bild umwandeln, dann klappt die Erkennung.",
+    note: "Texterkennung und Sprachdaten laufen auf dem eigenen Gerät. Das Bild wird nicht hochgeladen und keine fremde Seite wird dabei aufgerufen.",
   },
   en: {
     needImage: "Please choose an image.",

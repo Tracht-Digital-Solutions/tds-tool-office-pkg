@@ -65,7 +65,7 @@ export default defineToolPack({
       seo: {
         title: "Texterkennung (OCR) online – Text aus Bild auslesen",
         description:
-          "Abgetippt wird nichts mehr: Texterkennung für Fotos und Bildscans, deutsch und englisch. Die Erkennung läuft auf Ihrem Gerät, das Bild bleibt dort.",
+          "Abgetippt wird nichts mehr: Texterkennung für Fotos und Bildscans, deutsch und englisch. Die Erkennung läuft auf dem eigenen Gerät, das Bild bleibt dort.",
       },
     }),
   ],

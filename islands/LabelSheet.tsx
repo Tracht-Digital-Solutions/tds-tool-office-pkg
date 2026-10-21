@@ -135,7 +135,7 @@ const STRINGS = {
     preview: (n) => `${n} Etikett(en) erkannt`,
     working: "Erstelle …",
     run: "Bogen erstellen & herunterladen",
-    note: "Der Bogen wird lokal im Browser erzeugt; die Adressen verlassen Ihren Rechner nicht.",
+    note: "Der Bogen wird lokal im Browser erzeugt; die Adressen verlassen den Rechner nicht.",
   },
   en: {
     needText: "Please enter at least one label.",

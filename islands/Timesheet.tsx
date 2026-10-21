@@ -83,7 +83,7 @@ const STRINGS = {
     signEmployee: "Datum, Unterschrift Mitarbeiter/in",
     signEmployer: "Datum, Unterschrift Betrieb",
     title: "Arbeitszeitnachweis",
-    note: "Der Stundenzettel wird lokal im Browser erzeugt; die Zeiten verlassen Ihren Rechner nicht.",
+    note: "Der Stundenzettel wird lokal im Browser erzeugt; die Zeiten verlassen den Rechner nicht.",
     tableLabel: "Arbeitszeiten je Tag",
   },
   en: {
