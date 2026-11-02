@@ -1,0 +1,13 @@
+---
+import TravelCost from "../islands/TravelCost.tsx";
+
+interface Props {
+  lang?: "de" | "en";
+}
+
+const { lang = "de" } = Astro.props;
+---
+
+<div class="tool tool--travel-cost">
+  <TravelCost client:load lang={lang} />
+</div>

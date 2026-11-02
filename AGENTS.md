@@ -1,7 +1,8 @@
 # AGENTS.md — tds-tool-office-pkg
 
-Tool pack for the public tools platform with three **premium** office tools: label
-sheets, a monthly timesheet and OCR text recognition. All run fully client-side.
+Tool pack for the public tools platform with three **premium** office tools (label
+sheets, a monthly timesheet, OCR text recognition), which run fully client-side, and the free
+travel cost calculator, which asks Nominatim and OSRM when its button is pressed.
 It builds against `@tracht-digital-solutions/tds-tools-contract` and is composed into
 `tds-tools-frontend` at build time.
 
@@ -24,7 +25,7 @@ npm run lint:primitives         # fails on a bare control or a flex table cell
   The manual release button is for minor/major. A docs-only commit carries `[skip ci]`.
 - **Never change the OCR asset paths.** Otherwise the tool silently loads from a CDN and the privacy claim becomes false.
 - Text drawn into a PDF goes through `toWinAnsi`; pdf-lib throws on unencodable characters.
-- All three tools declare `premiumDefault: true` and `priceCentsDefault`. The paywall lives in the site and `tds-ext-tools-pkg`.
+- The three premium tools declare `premiumDefault: true` and `priceCentsDefault`. The paywall lives in the site and `tds-ext-tools-pkg`.
 - Ship no CSS. Every control carries a shared `tds-shared` class.
 - `component` is a package subpath resolved via `exports`. Tool `id` and `slug` stay unique.
 - Stay inside the `0.2.x` line. The site pins `^0.2.0`, and a 0.x caret is minor-locked.

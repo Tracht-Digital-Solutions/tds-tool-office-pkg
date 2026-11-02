@@ -34,8 +34,8 @@ describe("pack envelope", () => {
     expect(pack.name).toBe("Büro");
   });
 
-  it("ships all three documented tools", () => {
-    expect(pack.tools.map((t) => t.id).sort()).toEqual(IDS);
+  it("ships the documented tools", () => {
+    expect(pack.tools.map((t) => t.id).sort()).toEqual(["anfahrtskosten", ...IDS].sort());
   });
 });
 
@@ -57,8 +57,8 @@ describe("tool ids and slugs", () => {
 });
 
 describe("premium gating", () => {
-  it("marks every tool premium with a price", () => {
-    for (const t of pack.tools) {
+  it("marks every tool premium with a price, except the free travel cost calculator", () => {
+    for (const t of pack.tools.filter((tool) => tool.id !== "anfahrtskosten")) {
       expect(t.premiumDefault, `${t.id} must be premium`).toBe(true);
       expect(t.priceCentsDefault, `${t.id} is premium but unpriced`).toBeGreaterThan(0);
     }

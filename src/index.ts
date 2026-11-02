@@ -15,6 +15,23 @@ export default defineToolPack({
   version: "0.1.0",
   tools: [
     defineTool({
+      id: "anfahrtskosten",
+      slug: "anfahrtskosten-rechner",
+      name: "Anfahrtskosten-Rechner",
+      category: "business",
+      description:
+        "Berechnet die Anfahrt von Schwarzenbek zu einer Adresse: Strecke, Fahrzeit und Kosten nach frei wählbarem Kilometerpreis, einfach oder hin und zurück.",
+      icon: "map-pin",
+      keywords: ["anfahrtskosten", "anfahrt", "kilometer", "fahrtkosten", "schwarzenbek", "entfernung"],
+      component: "@tracht-digital-solutions/tds-tool-office/tools/TravelCost.astro",
+      premiumDefault: false,
+      seo: {
+        title: "Anfahrtskosten berechnen ab Schwarzenbek",
+        description:
+          "Anfahrtskosten von Schwarzenbek bis zur Zieladresse berechnen: Strecke, Fahrzeit und Kosten pro Kilometer, wahlweise mit Hin- und Rückfahrt.",
+      },
+    }),
+    defineTool({
       id: "etiketten-drucken",
       slug: "etiketten-drucken",
       name: "Etiketten drucken",
